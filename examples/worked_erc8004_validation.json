@@ -34,7 +34,7 @@
       "status": "pending",
       "ots": "https://api.quantsynth.net/verify/3a1e4c4b57d0b011e4d738587a2b3237a3807061464e6ef6530009015090bd3a.ots"
     },
-    "attestation_ref": "/Users/colinwinter/markovian/resolution_milestone/attestations/423e8e6c7a46320c2f6787fcfea763f1fc8541a0b9d5c50c8a75349c46b8bc2f.json"
+    "attestation_ref": "~/markovian/resolution_milestone/attestations/423e8e6c7a46320c2f6787fcfea763f1fc8541a0b9d5c50c8a75349c46b8bc2f.json"
   },
   "verify": "Do NOT trust this validator's score. Fetch responseURI, rerun the committed M (m_commitment) over the committed bars (attestation_ref) under spec_id, rebuild the merkle root and check it equals responseHash. Confirm responseHash is timestamped in Bitcoin via the .ots proof. No database, no arbiter, no trust in the resolver \u2014 the referee is a pure function anyone can run."
 }
