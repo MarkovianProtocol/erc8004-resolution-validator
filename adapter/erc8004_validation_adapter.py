@@ -24,7 +24,7 @@ import os, sys, json, argparse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-import resolve_regime_milestone as engine
+import resolve_state_milestone as engine
 
 METHOD_TAG = "markovian.resolve.v1"          # goes in ERC-8004 `tag` + agent supportedTrust[]
 VALIDATION_REGISTRY = "0x8004Cb1BF31DAf7788923b405b754f57acEB4272"
@@ -101,7 +101,7 @@ def to_erc8004_validation(agent_id, att, attestation_ref=None):
 
 
 def resolve_agent_claim(agent_id, asset, proposition_state, resolution_time, created_at=None):
-    """Resolve 'asset regime == proposition_state at resolution_time' trustlessly and
+    """Resolve 'series state == proposition_state at resolution_time' trustlessly and
     emit the ERC-8004 validation record for the given agent NFT id."""
     if asset != engine.ASSET:
         raise ValueError(f"engine domain is {engine.ASSET}; got {asset}")
@@ -121,7 +121,7 @@ if __name__ == "__main__":
         att = json.load(open(a.att))
         print(json.dumps(to_erc8004_validation(a.agent_id, att, a.att), indent=2))
     else:
-        rec = resolve_agent_claim("42", "QQQ", "DISTRIBUTION", "2026-06-29",
+        rec = resolve_agent_claim("42", "series-a", "S2", "2026-06-29",
                                   created_at="2026-06-22T00:00:00Z")
         out = os.path.join(HERE, "worked_erc8004_validation.json")
         json.dump(rec, open(out, "w"), indent=2)

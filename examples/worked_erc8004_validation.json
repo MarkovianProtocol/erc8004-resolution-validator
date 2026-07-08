@@ -22,7 +22,7 @@
     "arbiter": false,
     "oracle_vote": false,
     "committee": false,
-    "resolved_state": "DISTRIBUTION",
+    "resolved_state": "S2",
     "confidence": 0.9998,
     "spec_id": "62bfb0601b05f196d1d433a8039aaccfa14dc3da4475b53f90fe6edaadb8d1d1",
     "m_commitment": "08481a9e42f638f223a8450f54415775a3640471d116c22b7f31ace2b11a6fc3",

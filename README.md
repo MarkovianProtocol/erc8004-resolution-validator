@@ -21,7 +21,7 @@ trust the validator.
 | `SPEC.md` | The `markovian.resolve.v1` validation-method profile (request/response mapping, proof bundle, verification procedure). |
 | `contracts/MarkovianResolutionValidator.sol` | The validator contract. Records a resolution into the canonical ValidationRegistry. |
 | `adapter/erc8004_validation_adapter.py` | Maps a live Markovian ResolutionAttestation → the exact ERC-8004 call args + off-chain proof bundle. |
-| `examples/worked_erc8004_validation.json` | A real resolution (QQQ regime, deterministic replay over 6,661 committed bars, Bitcoin-anchored) mapped to a `validationResponse`. |
+| `examples/worked_erc8004_validation.json` | A worked resolution (series-a state, deterministic replay over 6,661 committed records, Bitcoin-anchored) mapped to a `validationResponse`. |
 
 ## The one idea
 

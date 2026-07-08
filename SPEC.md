@@ -24,8 +24,8 @@ alongside the three the EIP sketches, and it removes the trust the other three r
 ## What it validates
 
 An agent's **outcome-claim**: a proposition over public data that becomes decidable at
-or after a committed time / block height (e.g. *"asset X was in regime R at the 2026-06-29
-close"*, *"metric M crossed T by block N"*). The claim is committed **before** the outcome
+or after a committed time / block height (e.g. *"series X was in state R at the 2026-06-29
+checkpoint"*, *"metric M crossed T by block N"*). The claim is committed **before** the outcome
 is knowable, so it cannot be backfilled.
 
 ## Mapping to `validationRequest` / `validationResponse`
@@ -56,7 +56,7 @@ An agent opts in by listing `"markovian.resolve.v1"` in its ERC-8004 registratio
 {
   "method": "deterministic_replay",
   "trustless": true, "arbiter": false, "oracle_vote": false, "committee": false,
-  "resolved_state": "DISTRIBUTION",
+  "resolved_state": "S2",
   "confidence": 0.9998,
   "spec_id":       "…",   // hash of the resolution spec (the pure function's definition)
   "m_commitment":  "…",   // hash of the committed model/function M
