@@ -1,0 +1,17 @@
+{
+  "method": "markovian.resolve.v1",
+  "profile": "deterministic-replay",
+  "requestHash": "0xa20e6aec5035dd1884288d295b0e997a4aa24eba3c377c2aec15236811c41c3b",
+  "target_height": 957122,
+  "block_hash": "0000000000000000000096887892390cb28d7764d3fd5bbeaa18a040d8b8ba8b",
+  "tx_count": 6758,
+  "predicate": "tx_count > 3000",
+  "evaluation": {
+    "tx_count": 6758,
+    "threshold": 3000,
+    "gt": true
+  },
+  "verdict": 100,
+  "verdict_label": "PASS",
+  "reproduce": "fetch the block at target_height from any Bitcoin node/explorer, read tx_count, compare > 3000"
+}
