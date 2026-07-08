@@ -1,0 +1,18 @@
+{
+  "method": "markovian.resolve.v1",
+  "profile": "deterministic-replay",
+  "claim": "The Bitcoin block hash at height 957110, read big-endian as an integer, is even (least-significant bit == 0).",
+  "resolution_function": {
+    "id": "btc-blockhash-parity.v1",
+    "inputs": {
+      "height": 957110,
+      "source": "canonical Bitcoin block at the stated height; block hash from any full node or public explorer, e.g. https://mempool.space/api/block-height/957110"
+    },
+    "predicate": "int(blockhash_hex, 16) % 2 == 0",
+    "verdict": "PASS(100) if predicate true else FAIL(0)"
+  },
+  "committed_before": {
+    "btc_tip_at_commit": 957104,
+    "note": "committed while target height was unmined; outcome not yet knowable"
+  }
+}
