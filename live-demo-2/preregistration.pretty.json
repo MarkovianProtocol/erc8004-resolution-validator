@@ -1,0 +1,19 @@
+{
+  "method": "markovian.resolve.v1",
+  "profile": "deterministic-replay",
+  "claim": "Bitcoin block 957122 confirms more than 3000 transactions (a full-block throughput prediction).",
+  "resolution_function": {
+    "id": "btc-block-txcount-gt.v1",
+    "inputs": {
+      "height": 957122,
+      "threshold": 3000,
+      "source": "tx_count of the canonical Bitcoin block at the stated height, from any node or public explorer, e.g. https://mempool.space/api/block/<blockhash>"
+    },
+    "predicate": "block.tx_count > 3000",
+    "verdict": "PASS(100) if true else FAIL(0)"
+  },
+  "committed_before": {
+    "btc_tip_at_commit": 957116,
+    "note": "committed while target height unmined; block contents not yet knowable"
+  }
+}
