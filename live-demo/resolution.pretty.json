@@ -1,0 +1,15 @@
+{
+  "method": "markovian.resolve.v1",
+  "profile": "deterministic-replay",
+  "requestHash": "0x24bdf9767d91a2f560e9d2fd5edb33dae2c67c7a978552ea0b13bfabeb8801a2",
+  "target_height": 957110,
+  "block_hash": "00000000000000000001dda9597b0d4cc54b28c532bbd320f1b37f5fcdaf32d5",
+  "predicate": "int(blockhash_hex, 16) % 2 == 0",
+  "evaluation": {
+    "lsb": 1,
+    "even": false
+  },
+  "verdict": 0,
+  "verdict_label": "FAIL",
+  "reproduce": "fetch the block hash at target_height from any Bitcoin node/explorer, then int(hash,16) % 2 == 0"
+}
