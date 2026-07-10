@@ -1,0 +1,15 @@
+{
+ "protocol": "markovian.resolve.v1",
+ "statement": "Verdict for entry k: is the low byte of the Base Sepolia block hash EVEN? PASS(100)=even, FAIL(0)=odd.",
+ "resolution_function": {
+  "chain": "base-sepolia",
+  "chainId": 84532,
+  "rule": "verdict = 100 if (int(blockhash(height)) & 0xff) % 2 == 0 else 0",
+  "series": {
+   "entry0_height": 43939918,
+   "entry1_height": 43939919
+  },
+  "selection": "B0 = first block in [tip_at_build-600, +64) whose low-byte parity differs from B0+1"
+ },
+ "agentId": 7816
+}

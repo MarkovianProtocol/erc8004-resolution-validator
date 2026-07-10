@@ -5,13 +5,13 @@
     "validationRequest": {
       "validatorAddress": "<MarkovianResolutionValidator address>",
       "agentId": "42",
-      "requestURI": "https://api.quantsynth.net/resolve/proof/423e8e6c7a46320c2f6787fcfea763f1fc8541a0b9d5c50c8a75349c46b8bc2f.json",
+      "requestURI": "https://api.markovianprotocol.com/resolve/proof/423e8e6c7a46320c2f6787fcfea763f1fc8541a0b9d5c50c8a75349c46b8bc2f.json",
       "requestHash": "0x423e8e6c7a46320c2f6787fcfea763f1fc8541a0b9d5c50c8a75349c46b8bc2f"
     },
     "validationResponse": {
       "requestHash": "0x423e8e6c7a46320c2f6787fcfea763f1fc8541a0b9d5c50c8a75349c46b8bc2f",
       "response": 100,
-      "responseURI": "https://api.quantsynth.net/resolve/proof/423e8e6c7a46320c2f6787fcfea763f1fc8541a0b9d5c50c8a75349c46b8bc2f.json",
+      "responseURI": "https://api.markovianprotocol.com/resolve/proof/423e8e6c7a46320c2f6787fcfea763f1fc8541a0b9d5c50c8a75349c46b8bc2f.json",
       "responseHash": "0x3a1e4c4b57d0b011e4d738587a2b3237a3807061464e6ef6530009015090bd3a",
       "tag": "markovian.resolve.v1"
     }
@@ -32,7 +32,7 @@
     "anchor": {
       "type": "opentimestamps->bitcoin",
       "status": "pending",
-      "ots": "https://api.quantsynth.net/verify/3a1e4c4b57d0b011e4d738587a2b3237a3807061464e6ef6530009015090bd3a.ots"
+      "ots": "https://api.markovianprotocol.com/verify/3a1e4c4b57d0b011e4d738587a2b3237a3807061464e6ef6530009015090bd3a.ots"
     },
     "attestation_ref": "~/markovian/resolution_milestone/attestations/423e8e6c7a46320c2f6787fcfea763f1fc8541a0b9d5c50c8a75349c46b8bc2f.json"
   },

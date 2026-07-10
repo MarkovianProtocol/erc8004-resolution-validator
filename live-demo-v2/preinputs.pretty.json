@@ -1,0 +1,10 @@
+{
+ "agentId": 7816,
+ "claimHash": "0x5f37cf564b166d55564e41ae8b70de24b61577d0bf2f86a9f6aa0b4147ce3702",
+ "inputs": {
+  "chain": "base-sepolia",
+  "entry0_height": 43939918,
+  "entry1_height": 43939919
+ },
+ "bound": "before any outcome (anti-backfill)"
+}

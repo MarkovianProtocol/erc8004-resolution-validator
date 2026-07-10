@@ -28,7 +28,7 @@ import resolve_state_milestone as engine
 
 METHOD_TAG = "markovian.resolve.v1"          # goes in ERC-8004 `tag` + agent supportedTrust[]
 VALIDATION_REGISTRY = "0x8004Cb1BF31DAf7788923b405b754f57acEB4272"
-PROOF_BASE = "https://api.quantsynth.net/resolve/proof"   # returns the replayable attestation bundle
+PROOF_BASE = "https://api.markovianprotocol.com/resolve/proof"   # returns the replayable attestation bundle
 
 # Markovian verdict -> ERC-8004 score (0-100). Binary truth of the agent's claim;
 # confidence + full state live in the proof bundle at responseURI.
@@ -87,7 +87,7 @@ def to_erc8004_validation(agent_id, att, attestation_ref=None):
             "attestation_hash": att["attestation_hash"],
             "n_input_bars": len(att.get("bars", [])),
             "anchor": {"type": "opentimestamps->bitcoin", "status": att.get("ots_status"),
-                       "ots": f"https://api.quantsynth.net/verify/{merkle_root}.ots"},
+                       "ots": f"https://api.markovianprotocol.com/verify/{merkle_root}.ots"},
             "attestation_ref": ref,
         },
         "verify": (

@@ -89,3 +89,18 @@ the resolver, or anyone else says. **The referee is a pure function.**
   computed correctly*; this proves an *outcome-claim is true* against public data. An agent can
   carry both — a DeepProve/EigenAI proof that the model ran, and a Markovian resolution that the
   outcome resolved.
+
+## On-chain binding proof (Impl A) and conformance vectors
+
+The off-chain deterministic replay above is what makes a verdict *true*. A second, on-chain
+gate makes a verdict *unwritable without a proof*: `MarkovianResolutionValidator` records a
+resolution only if a Pedersen+Schnorr opening, bound through a Fiat-Shamir challenge to the
+exact `(requestHash, inputCommit, response, responseHash)` tuple, verifies on alt_bn128 G1.
+No proof, no write. No operator key can substitute.
+
+The exact byte-packing of that check (context, challenge, curve, the nothing-up-my-sleeve
+generator `H`, the reserved version byte, and the verdict domain) is normative in
+[`CONTRACT_SPEC.md`](CONTRACT_SPEC.md). Conformance is defined against
+[`vectors/vectors.json`](vectors/vectors.json), reproduced by two independent reference
+verifiers ([`verifier/verify_vectors.py`](verifier/verify_vectors.py) and
+[`goverify/`](goverify/)). Reimplement the verifier in any language and pass the same file.

@@ -1,0 +1,8 @@
+{
+ "entry": 1,
+ "height": 43939919,
+ "blockhash": "0x581312391996f539614f13d1085db2408d007a749a0dd38a2fff6eec61debc42",
+ "low_byte": 66,
+ "verdict": 100,
+ "verdict_label": "PASS(even)"
+}
