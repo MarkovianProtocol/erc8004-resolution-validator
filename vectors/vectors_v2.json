@@ -1,0 +1,477 @@
+{
+  "$schema": "https://markovianprotocol.com/schemas/resolve-vectors/v2",
+  "profile": "markovian.resolve.v2",
+  "description": "Conformance test vectors for the Markovian integer work function (WAD fixed-point, exact equality \u2014 no floats, no tolerance). A conformant implementation derives s_in from 'hash' when present (and MUST get the listed s_in), runs N plain iterations of the per-element-floor matvec under SPEC_V2.md, and reproduces every 'expect'. All values are decimal strings of WAD-scaled (1e18) unsigned integers.",
+  "wad": "1000000000000000000",
+  "n_max": 1048576,
+  "genesis_m_v2": [
+    [
+      "700000000000000000",
+      "250000000000000000",
+      "50000000000000000"
+    ],
+    [
+      "100000000000000000",
+      "750000000000000000",
+      "150000000000000000"
+    ],
+    [
+      "200000000000000000",
+      "150000000000000000",
+      "650000000000000000"
+    ]
+  ],
+  "derivation": "a,b,c = first 24 hash bytes as 3 big-endian uint64; s[i] = x_i*WAD // (a+b+c); remainder WAD - sum(s) (0..2) added to s[0]; a+b+c == 0 => reject.",
+  "iteration": "s'[i] = (M[i][0]*s[0])//WAD + (M[i][1]*s[1])//WAD + (M[i][2]*s[2])//WAD  \u2014 per-element floor, then sum; N plain iterations; no renormalization; exponentiation-by-squaring is NON-conformant (floor rounding is non-associative).",
+  "comparator": "exact equality of the final 3-vector. No tolerance.",
+  "source": "Derivation hashes are live MKV chain block hashes (heights 2440, 2439, chain.db 2026-07-17) plus deterministic sha256 constructions noted per vector.",
+  "vectors": [
+    {
+      "name": "n0-identity",
+      "version": 2,
+      "M": [
+        [
+          "700000000000000000",
+          "250000000000000000",
+          "50000000000000000"
+        ],
+        [
+          "100000000000000000",
+          "750000000000000000",
+          "150000000000000000"
+        ],
+        [
+          "200000000000000000",
+          "150000000000000000",
+          "650000000000000000"
+        ]
+      ],
+      "s_in": [
+        "333333333333333334",
+        "333333333333333333",
+        "333333333333333333"
+      ],
+      "N": 0,
+      "s_out": [
+        "333333333333333334",
+        "333333333333333333",
+        "333333333333333333"
+      ],
+      "expect": true,
+      "note": "N=0 is the identity: s_out == s_in. The uniform vector is WAD//3 per component with the 1-unit remainder on index 0, sum exactly WAD."
+    },
+    {
+      "name": "n1-uniform",
+      "version": 2,
+      "M": [
+        [
+          "700000000000000000",
+          "250000000000000000",
+          "50000000000000000"
+        ],
+        [
+          "100000000000000000",
+          "750000000000000000",
+          "150000000000000000"
+        ],
+        [
+          "200000000000000000",
+          "150000000000000000",
+          "650000000000000000"
+        ]
+      ],
+      "s_in": [
+        "333333333333333334",
+        "333333333333333333",
+        "333333333333333333"
+      ],
+      "N": 1,
+      "s_out": [
+        "333333333333333332",
+        "333333333333333331",
+        "333333333333333331"
+      ],
+      "expect": true,
+      "note": "One iteration from uniform. GENESIS_M v2 rows each sum to exactly WAD, so this stays near-uniform; per-element floor is the only loss."
+    },
+    {
+      "name": "n2-live-block-2440",
+      "version": 2,
+      "M": [
+        [
+          "700000000000000000",
+          "250000000000000000",
+          "50000000000000000"
+        ],
+        [
+          "100000000000000000",
+          "750000000000000000",
+          "150000000000000000"
+        ],
+        [
+          "200000000000000000",
+          "150000000000000000",
+          "650000000000000000"
+        ]
+      ],
+      "hash": "0x00031ceb126f4ee8993f1ebb4c6e86039ddfc164af6d933bf964763e4db8ee29",
+      "s_in": [
+        "39083017773260",
+        "492543951467133045",
+        "507416965515093695"
+      ],
+      "N": 2,
+      "s_out": [
+        "235540562006255023",
+        "409553297508806620",
+        "358947285350887599"
+      ],
+      "expect": true,
+      "note": "s_in derived from live MKV block 2440 hash (first 24 bytes as 3 big-endian uint64, floor-normalized, remainder 1 to index 0). N=2."
+    },
+    {
+      "name": "n1000-live-difficulty",
+      "version": 2,
+      "M": [
+        [
+          "700000000000000000",
+          "250000000000000000",
+          "50000000000000000"
+        ],
+        [
+          "100000000000000000",
+          "750000000000000000",
+          "150000000000000000"
+        ],
+        [
+          "200000000000000000",
+          "150000000000000000",
+          "650000000000000000"
+        ]
+      ],
+      "hash": "0x000d482e2129466246e6ab94a3cb13fbc0aa2d99bd3104910f938515af78770a",
+      "s_in": [
+        "196810127033672",
+        "268954082140074380",
+        "730849107732891948"
+      ],
+      "N": 1000,
+      "s_out": [
+        "295742313562899200",
+        "295742313562899200",
+        "295742313562899200"
+      ],
+      "expect": true,
+      "note": "s_in derived from live MKV block 2439 hash. N=1000 is the live chain difficulty_n (and genesis INITIAL_N). Remainder 2 to index 0."
+    },
+    {
+      "name": "n65536-large",
+      "version": 2,
+      "M": [
+        [
+          "700000000000000000",
+          "250000000000000000",
+          "50000000000000000"
+        ],
+        [
+          "100000000000000000",
+          "750000000000000000",
+          "150000000000000000"
+        ],
+        [
+          "200000000000000000",
+          "150000000000000000",
+          "650000000000000000"
+        ]
+      ],
+      "s_in": [
+        "333333333333333334",
+        "333333333333333333",
+        "333333333333333333"
+      ],
+      "N": 65536,
+      "s_out": [
+        "333333333333333320",
+        "333333333333333320",
+        "333333333333333320"
+      ],
+      "expect": true,
+      "note": "Large-N case, 2^16 plain iterations. N up to N_MAX=2^20 is accepted; 2^16 keeps the vector executable inside one EVM block."
+    },
+    {
+      "name": "derive-remainder-2",
+      "version": 2,
+      "M": [
+        [
+          "700000000000000000",
+          "250000000000000000",
+          "50000000000000000"
+        ],
+        [
+          "100000000000000000",
+          "750000000000000000",
+          "150000000000000000"
+        ],
+        [
+          "200000000000000000",
+          "150000000000000000",
+          "650000000000000000"
+        ]
+      ],
+      "hash": "0xb569ae79fd61a1d48ce8afeea68ae4442c55c050ca6ba1928fd4bb5bb7108001",
+      "s_in": [
+        "494775655921860724",
+        "384307520581382277",
+        "120916823496756999"
+      ],
+      "N": 1,
+      "s_out": [
+        "448465680465485924",
+        "355845729552736328",
+        "235197194544471534"
+      ],
+      "expect": true,
+      "note": "Derivation remainder rule firing at its maximum: the three floors leave r=2 WAD-units, both added to index 0. At least one component's fractional part exceeds 1/2, so naive nearest-rounding would produce a different vector: floor + remainder-to-index-0 is normative. Hash is sha256('markovian.resolve.v2 remainder vector 1')."
+    },
+    {
+      "name": "wrong-output-one-unit",
+      "version": 2,
+      "M": [
+        [
+          "700000000000000000",
+          "250000000000000000",
+          "50000000000000000"
+        ],
+        [
+          "100000000000000000",
+          "750000000000000000",
+          "150000000000000000"
+        ],
+        [
+          "200000000000000000",
+          "150000000000000000",
+          "650000000000000000"
+        ]
+      ],
+      "hash": "0x00031ceb126f4ee8993f1ebb4c6e86039ddfc164af6d933bf964763e4db8ee29",
+      "s_in": [
+        "39083017773260",
+        "492543951467133045",
+        "507416965515093695"
+      ],
+      "N": 2,
+      "s_out": [
+        "235540562006255023",
+        "409553297508806620",
+        "358947285350887600"
+      ],
+      "expect": false,
+      "note": "n2-live-block-2440's correct output with the last component off by ONE WAD-unit (1e-18). v1's np.allclose(atol=1e-9) accepts this forgery; v2's exact-equality comparator returns false. This vector is the reason the profile exists."
+    },
+    {
+      "name": "grease-wrong-sum",
+      "version": 2,
+      "M": [
+        [
+          "700000000000000000",
+          "250000000000000000",
+          "50000000000000000"
+        ],
+        [
+          "100000000000000000",
+          "750000000000000000",
+          "150000000000000000"
+        ],
+        [
+          "200000000000000000",
+          "150000000000000000",
+          "650000000000000000"
+        ]
+      ],
+      "s_in": [
+        "333333333333333333",
+        "333333333333333333",
+        "333333333333333333"
+      ],
+      "N": 1,
+      "s_out": [
+        "333333333333333332",
+        "333333333333333331",
+        "333333333333333331"
+      ],
+      "expect": "reject",
+      "note": "GREASE. s_in sums to WAD-1. A state vector MUST sum to exactly WAD; a conformant implementation rejects cleanly (no math, no crash), never silently normalizes."
+    },
+    {
+      "name": "grease-component-gt-wad",
+      "version": 2,
+      "M": [
+        [
+          "700000000000000000",
+          "250000000000000000",
+          "50000000000000000"
+        ],
+        [
+          "100000000000000000",
+          "750000000000000000",
+          "150000000000000000"
+        ],
+        [
+          "200000000000000000",
+          "150000000000000000",
+          "650000000000000000"
+        ]
+      ],
+      "s_in": [
+        "333333333333333334",
+        "333333333333333333",
+        "333333333333333333"
+      ],
+      "N": 1,
+      "s_out": [
+        "1000000000000000001",
+        "0",
+        "0"
+      ],
+      "expect": "reject",
+      "note": "GREASE. Claimed output component is WAD+1. No reachable state has a component above WAD (rows sum to WAD, so the max component never grows); a claim outside the domain is malformed -> reject, not false."
+    },
+    {
+      "name": "grease-unknown-version",
+      "version": 3,
+      "M": [
+        [
+          "700000000000000000",
+          "250000000000000000",
+          "50000000000000000"
+        ],
+        [
+          "100000000000000000",
+          "750000000000000000",
+          "150000000000000000"
+        ],
+        [
+          "200000000000000000",
+          "150000000000000000",
+          "650000000000000000"
+        ]
+      ],
+      "s_in": [
+        "333333333333333334",
+        "333333333333333333",
+        "333333333333333333"
+      ],
+      "N": 1,
+      "s_out": [
+        "333333333333333332",
+        "333333333333333331",
+        "333333333333333331"
+      ],
+      "expect": "reject",
+      "note": "GREASE. version=3 is unknown to a v2 implementation. Unknown version MUST reject cleanly, never crash. Payload is otherwise n1-uniform's valid claim to prove the reject is the version gate, not the math."
+    },
+    {
+      "name": "grease-n-too-large",
+      "version": 2,
+      "M": [
+        [
+          "700000000000000000",
+          "250000000000000000",
+          "50000000000000000"
+        ],
+        [
+          "100000000000000000",
+          "750000000000000000",
+          "150000000000000000"
+        ],
+        [
+          "200000000000000000",
+          "150000000000000000",
+          "650000000000000000"
+        ]
+      ],
+      "s_in": [
+        "333333333333333334",
+        "333333333333333333",
+        "333333333333333333"
+      ],
+      "N": 1048577,
+      "s_out": [
+        "333333333333333334",
+        "333333333333333333",
+        "333333333333333333"
+      ],
+      "expect": "reject",
+      "note": "GREASE. N = N_MAX+1 = 2^20+1. The N bound caps verification work; above it, reject before any iteration runs."
+    },
+    {
+      "name": "grease-zero-derivation",
+      "version": 2,
+      "M": [
+        [
+          "700000000000000000",
+          "250000000000000000",
+          "50000000000000000"
+        ],
+        [
+          "100000000000000000",
+          "750000000000000000",
+          "150000000000000000"
+        ],
+        [
+          "200000000000000000",
+          "150000000000000000",
+          "650000000000000000"
+        ]
+      ],
+      "hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "s_in": [
+        "333333333333333334",
+        "333333333333333333",
+        "333333333333333333"
+      ],
+      "N": 2,
+      "s_out": [
+        "333333333333333334",
+        "333333333333333333",
+        "333333333333333333"
+      ],
+      "expect": "reject",
+      "note": "GREASE. First 24 hash bytes are zero (the shape of GENESIS_HASH), so a+b+c == 0 and the derivation is undefined -> reject. v1's extract_s_from_hash raises ZeroDivisionError here; v2 pins the clean reject."
+    },
+    {
+      "name": "grease-bad-matrix-row",
+      "version": 2,
+      "M": [
+        [
+          "700000000000000000",
+          "250000000000000000",
+          "50000000000000000"
+        ],
+        [
+          "100000000000000000",
+          "750000000000000000",
+          "150000000000000000"
+        ],
+        [
+          "200000000000000000",
+          "150000000000000000",
+          "649999999999999999"
+        ]
+      ],
+      "s_in": [
+        "333333333333333334",
+        "333333333333333333",
+        "333333333333333333"
+      ],
+      "N": 1,
+      "s_out": [
+        "333333333333333332",
+        "333333333333333331",
+        "333333333333333331"
+      ],
+      "expect": "reject",
+      "note": "GREASE. M[2] sums to WAD-1. Every row of a v2 matrix MUST sum to exactly WAD (this is what bounds components at WAD and makes the overflow analysis hold) -> reject."
+    }
+  ]
+}
