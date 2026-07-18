@@ -120,4 +120,16 @@ against public data*. The two compose: an agent can carry a proof that its model
 Markovian resolution that the outcome resolved. This validator is the settlement layer
 under a reputation score.
 
+## Live on mainnet (2026-07-17)
+
+The agent behind this work is registered on the canonical ERC-8004 Identity Registry on
+Base mainnet as agent [`eip155:8453:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432/59270`](https://basescan.org/nft/0x8004a169fb4a3325136eb29fa0ceb6d2e539a432/59270),
+declaring the trust model `witnessed-log`. Its [registration file](https://markovianprotocol.com/.well-known/sigmasynth-registration.json)
+lists a C2SP checkpoint endpoint cosigned by seven independent witnesses, machine-readable,
+and a [browser-side verifier](https://markovianprotocol.com/trace.html) checks every
+cosignature in-page. A claim this validator settles can be published as an ERC-8004
+artifact file whose on-chain bytes32 is keccak256 of the exact served bytes, embedded log
+coordinates included, so verification walks from the hash to a witnessed checkpoint with
+no trusted party.
+
 Apache-2.0 (code) / CC0 (spec text).
